@@ -6,42 +6,23 @@
 <title>2026年夏アニメ視聴予定</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f0f0f; font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; color: #f1f1f1; }
 
-  body {
-    background: #0f0f0f;
-    font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
-    color: #f1f1f1;
-    min-height: 100vh;
-  }
-
-  /* ===== HEADER ===== */
   .page-header {
     background: linear-gradient(135deg, #0f0f0f 0%, #1a0a2e 40%, #0d1b3e 70%, #0f0f0f 100%);
-    padding: 32px 20px 24px;
+    padding: 28px 20px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid #272727;
   }
-
-  .page-header::before {
-    content: '';
-    position: absolute;
-    top: -60px; left: 50%; transform: translateX(-50%);
-    width: 500px; height: 200px;
-    background: radial-gradient(ellipse, rgba(255, 60, 60, 0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
   .page-header::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0; height: 2px;
     background: linear-gradient(90deg, transparent, #ff4e4e, #ff9f00, #ff4e4e, transparent);
   }
-
   .badge {
     display: inline-block;
     background: #ff0000;
@@ -52,13 +33,10 @@
     padding: 3px 10px;
     border-radius: 3px;
     margin-bottom: 10px;
-    text-transform: uppercase;
   }
-
   .page-title {
-    font-size: clamp(22px, 5vw, 34px);
+    font-size: clamp(22px, 5vw, 32px);
     font-weight: 900;
-    letter-spacing: -0.01em;
     line-height: 1.2;
     background: linear-gradient(135deg, #ffffff 0%, #ffe0a0 50%, #ff9f6b 100%);
     -webkit-background-clip: text;
@@ -66,26 +44,16 @@
     background-clip: text;
     margin-bottom: 8px;
   }
-
   .page-meta {
-    font-size: 13px;
+    font-size: 12px;
     color: #aaa;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
   }
 
-  .page-meta span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .dot { color: #444; }
-
-  /* ===== COUNT STRIP ===== */
   .count-strip {
     background: #161616;
     border-bottom: 1px solid #272727;
@@ -94,62 +62,25 @@
     align-items: center;
     gap: 10px;
   }
+  .count-num { font-size: 26px; font-weight: 900; color: #ff4e4e; line-height: 1; }
+  .count-label { font-size: 12px; color: #aaa; line-height: 1.4; }
+  .count-bar { flex: 1; height: 4px; background: #272727; border-radius: 2px; overflow: hidden; margin-left: 8px; }
+  .count-bar-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #ff4e4e, #ff9f00); border-radius: 2px; }
 
-  .count-num {
-    font-size: 26px;
-    font-weight: 900;
-    color: #ff4e4e;
-    line-height: 1;
-  }
+  .anime-list { padding: 8px 0 32px; }
 
-  .count-label {
-    font-size: 12px;
-    color: #aaa;
-    line-height: 1.4;
-  }
-
-  .count-bar {
-    flex: 1;
-    height: 4px;
-    background: #272727;
-    border-radius: 2px;
-    overflow: hidden;
-    margin-left: 8px;
-  }
-
-  .count-bar-fill {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg, #ff4e4e, #ff9f00);
-    border-radius: 2px;
-    animation: fillBar 1.2s ease-out forwards;
-    transform-origin: left;
-  }
-
-  @keyframes fillBar {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
-
-  /* ===== LIST ===== */
-  .anime-list {
-    padding: 12px 0 32px;
-  }
-
-  .anime-item {
+  a.anime-item {
     display: flex;
     gap: 12px;
     padding: 10px 16px;
     cursor: pointer;
     transition: background 0.15s;
     position: relative;
+    text-decoration: none;
+    color: inherit;
   }
-
-  .anime-item:hover {
-    background: #1e1e1e;
-  }
-
-  .anime-item:not(:last-child)::after {
+  a.anime-item:hover { background: #1e1e1e; }
+  a.anime-item:not(:last-child)::after {
     content: '';
     position: absolute;
     bottom: 0; left: 16px; right: 16px;
@@ -157,7 +88,6 @@
     background: #1c1c1c;
   }
 
-  /* Thumbnail */
   .thumb-wrap {
     position: relative;
     flex-shrink: 0;
@@ -167,58 +97,45 @@
     overflow: hidden;
     background: #1a1a2e;
   }
-
   .thumb-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.2s;
   }
+  a.anime-item:hover .thumb-wrap img { transform: scale(1.04); }
 
-  .thumb-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    color: #555;
-    text-align: center;
-    padding: 8px;
-    line-height: 1.4;
-  }
-
-  /* Gradient overlays matching each anime's color */
-  .thumb-wrap::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--thumb-gradient, linear-gradient(135deg, #1a1a2e, #2d1b4e));
-    z-index: 0;
-  }
-
-  .thumb-icon {
+  .play-overlay {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
-    font-size: 36px;
-    opacity: 0.85;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
-  }
-
-  .thumb-title-overlay {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    padding: 16px 6px 5px;
+    background: rgba(0,0,0,0);
+    transition: background 0.2s;
     z-index: 2;
-    font-size: 9px;
-    color: #ddd;
-    line-height: 1.3;
-    font-weight: 600;
+  }
+  a.anime-item:hover .play-overlay { background: rgba(0,0,0,0.3); }
+  .play-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,0,0,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  a.anime-item:hover .play-icon { opacity: 1; transform: scale(1); }
+  .play-icon::after {
+    content: '';
+    border-style: solid;
+    border-width: 6px 0 6px 12px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 2px;
   }
 
   .duration {
@@ -234,7 +151,6 @@
     z-index: 3;
     letter-spacing: 0.03em;
   }
-
   .thumb-badge {
     position: absolute;
     top: 5px;
@@ -249,18 +165,16 @@
     letter-spacing: 0.06em;
   }
 
-  /* Info */
   .anime-info {
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
     padding-top: 2px;
   }
-
   .anime-title {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
     line-height: 1.4;
     color: #f1f1f1;
@@ -269,24 +183,8 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
-  .anime-channel {
-    font-size: 12px;
-    color: #aaa;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .anime-stats {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: #717171;
-    flex-wrap: wrap;
-  }
-
+  .anime-channel { font-size: 12px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .anime-stats { font-size: 11px; color: #717171; }
   .airdate {
     display: inline-flex;
     align-items: center;
@@ -298,10 +196,9 @@
     padding: 2px 7px;
     border-radius: 12px;
     border: 1px solid #1e4a7a;
-    margin-top: 2px;
+    margin-top: 3px;
     width: fit-content;
   }
-
   .item-num {
     position: absolute;
     top: 12px;
@@ -309,10 +206,8 @@
     font-size: 11px;
     color: #444;
     font-weight: 700;
-    font-variant-numeric: tabular-nums;
   }
 
-  /* ===== FOOTER ===== */
   .page-footer {
     background: #111;
     border-top: 1px solid #222;
@@ -322,287 +217,274 @@
     color: #555;
     letter-spacing: 0.06em;
   }
-
-  .footer-logo {
-    font-size: 14px;
-    font-weight: 900;
-    color: #ff4e4e;
-    letter-spacing: 0.05em;
-    margin-bottom: 4px;
-  }
+  .footer-logo { font-size: 14px; font-weight: 900; color: #ff4e4e; margin-bottom: 4px; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="page-header">
   <div class="badge">🌸 SUMMER 2026</div>
   <div class="page-title">2026年夏アニメ<br>視聴予定リスト</div>
   <div class="page-meta">
     <span>📺 全14作品</span>
-    <span class="dot">•</span>
+    <span>•</span>
     <span>🗓 2026年7月〜</span>
-    <span class="dot">•</span>
+    <span>•</span>
     <span>⭐ 厳選ラインナップ</span>
   </div>
 </div>
 
-<!-- COUNT STRIP -->
 <div class="count-strip">
   <div class="count-num">14</div>
   <div class="count-label">作品<br>視聴予定</div>
-  <div class="count-bar">
-    <div class="count-bar-fill"></div>
-  </div>
+  <div class="count-bar"><div class="count-bar-fill"></div></div>
 </div>
 
-<!-- ANIME LIST -->
 <div class="anime-list">
 
-  <!-- 1 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #0a1628, #1e3a6e);">
-      <div class="thumb-icon">🧊</div>
-      <div class="thumb-title-overlay">身代わり令嬢を救ったのは冷酷無慈悲な氷の王子の愛</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">0:50</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">身代わり令嬢を救ったのは冷酷無慈悲な氷の王子の愛…</div>
-      <div class="anime-channel">ファンギルド Channel</div>
-      <div class="anime-stats"><span>9,090回視聴</span></div>
-      <div class="airdate">📡 7月7日放送開始</div>
-    </div>
-    <div class="item-num">01</div>
+<!-- 1 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=Q3zyZrf3uyY" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/Q3zyZrf3uyY/mqdefault.jpg" alt="身代わり令嬢" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">0:50</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">【7月7日放送開始！】身代わり令嬢を救ったのは冷酷無慈悲な氷の王子の愛でした ティーザーPV第2弾</div>
+    <div class="anime-channel">ファンギルド Channel</div>
+    <div class="anime-stats">9,090回視聴</div>
+    <div class="airdate">📡 7月7日放送開始</div>
+  </div>
+  <div class="item-num">01</div>
+</a>
 
-  <!-- 2 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #1a0a2e, #3d1060);">
-      <div class="thumb-icon">💙</div>
-      <div class="thumb-title-overlay">きみが死ぬまで恋をしたい</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:41</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ『きみが死ぬまで恋をしたい』第2弾PV</div>
-      <div class="anime-channel">KADOKAWAanime</div>
-      <div class="anime-stats"><span>37万回視聴</span></div>
-      <div class="airdate">📡 7月7日放送開始</div>
-    </div>
-    <div class="item-num">02</div>
+<!-- 2 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=zJLbfK_9ZmQ" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/zJLbfK_9ZmQ/mqdefault.jpg" alt="きみが死ぬまで恋をしたい" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:41</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">【💐7月7日放送開始💐】TVアニメ『きみが死ぬまで恋をしたい』第2弾PV</div>
+    <div class="anime-channel">KADOKAWAanime</div>
+    <div class="anime-stats">37万回視聴</div>
+    <div class="airdate">📡 7月7日放送開始</div>
+  </div>
+  <div class="item-num">02</div>
+</a>
 
-  <!-- 3 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #1a2a0a, #2e5010);">
-      <div class="thumb-icon">🐱</div>
-      <div class="thumb-title-overlay">ヤニねこ</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:28</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ『ヤニねこ』メインPV｜2026年7月2日からTOKYO MX、BS11、AT-Xに…</div>
-      <div class="anime-channel">TVアニメ『ヤニねこ』公式</div>
-      <div class="anime-stats"><span>55万回視聴</span></div>
-      <div class="airdate">📡 7月2日放送開始</div>
-    </div>
-    <div class="item-num">03</div>
+<!-- 3 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=ydK2WdTAOgU" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/ydK2WdTAOgU/mqdefault.jpg" alt="ヤニねこ" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:28</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ『ヤニねこ』メインPV｜2026年7月2日からTOKYO MX、BS11、AT-Xにて放送開始！</div>
+    <div class="anime-channel">TVアニメ『ヤニねこ』公式【ハメちゃんねる】</div>
+    <div class="anime-stats">55万回視聴</div>
+    <div class="airdate">📡 7月2日放送開始</div>
+  </div>
+  <div class="item-num">03</div>
+</a>
 
-  <!-- 4 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #0d2a1a, #1a5030);">
-      <div class="thumb-icon">🏢</div>
-      <div class="thumb-title-overlay">株式会社マジルミエ 第2期</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">0:31</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ『株式会社マジルミエ』第2期30秒番宣映像｜2026年7月4日から放送開始！</div>
-      <div class="anime-channel">TVアニメ『株式会社マジルミエ』公式</div>
-      <div class="anime-stats"><span>1.8万回視聴</span></div>
-      <div class="airdate">📡 7月4日放送開始</div>
-    </div>
-    <div class="item-num">04</div>
+<!-- 4 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=46w2OsPayB4" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/46w2OsPayB4/mqdefault.jpg" alt="株式会社マジルミエ 第2期" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">0:31</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ『株式会社マジルミエ』第2期30秒番宣映像｜2026年7月4日から放送開始！</div>
+    <div class="anime-channel">TVアニメ『株式会社マジルミエ』公式</div>
+    <div class="anime-stats">1.8万回視聴</div>
+    <div class="airdate">📡 7月4日放送開始</div>
+  </div>
+  <div class="item-num">04</div>
+</a>
 
-  <!-- 5 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #2a0a1a, #5c1030);">
-      <div class="thumb-icon">🌸</div>
-      <div class="thumb-title-overlay">花ざかりの君たちへ 第2期</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:45</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ「花ざかりの君たちへ」第2期PV｜2026年7月1日（水）より各局にて順次放…</div>
-      <div class="anime-channel">アニプレックス チャンネル</div>
-      <div class="anime-stats"><span>8.4万回視聴</span></div>
-      <div class="airdate">📡 7月1日放送開始</div>
-    </div>
-    <div class="item-num">05</div>
+<!-- 5 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=mJEmVR0kxQg" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/mJEmVR0kxQg/mqdefault.jpg" alt="花ざかりの君たちへ 第2期" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:45</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ「花ざかりの君たちへ」第2期PV｜2026年7月1日（水）より各局にて順次放送…</div>
+    <div class="anime-channel">アニプレックス チャンネル</div>
+    <div class="anime-stats">8.4万回視聴</div>
+    <div class="airdate">📡 7月1日放送開始</div>
+  </div>
+  <div class="item-num">05</div>
+</a>
 
-  <!-- 6 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #0f1a2a, #1e3050);">
-      <div class="thumb-icon">🔄</div>
-      <div class="thumb-title-overlay">正反対な君と僕 第2期</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:31</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ「正反対な君と僕」第2期PV第3弾</div>
-      <div class="anime-channel">SHOCHIKU animeチャンネル【公式】</div>
-      <div class="anime-stats"><span>28万回視聴</span></div>
-      <div class="airdate">📡 2026年7月放送</div>
-    </div>
-    <div class="item-num">06</div>
+<!-- 6 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=HW7enBbU_hk" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/HW7enBbU_hk/mqdefault.jpg" alt="正反対な君と僕 第2期" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:31</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ「正反対な君と僕」第2期PV第3弾</div>
+    <div class="anime-channel">SHOCHIKU animeチャンネル【公式】</div>
+    <div class="anime-stats">28万回視聴</div>
+    <div class="airdate">📡 2026年7月放送</div>
+  </div>
+  <div class="item-num">06</div>
+</a>
 
-  <!-- 7 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #2a1500, #5c3000);">
-      <div class="thumb-icon">❤️‍🔥</div>
-      <div class="thumb-title-overlay">君のことが大大大大大好きな100人の彼女 第3期</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:51</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ『君のことが大大大大大好きな100人の彼女』第3期メインPV｜2026年7月5…</div>
-      <div class="anime-channel">バンダイナムコフィルムワークス チャンネル</div>
-      <div class="anime-stats"><span>26万回視聴</span></div>
-      <div class="airdate">📡 7月5日放送開始</div>
-    </div>
-    <div class="item-num">07</div>
+<!-- 7 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=kvbOPdDfPio" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/kvbOPdDfPio/mqdefault.jpg" alt="100人の彼女 第3期" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:51</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ『君のことが大大大大大好きな100人の彼女』第3期メインPV｜2026年7月5日放送開始！</div>
+    <div class="anime-channel">バンダイナムコフィルムワークス チャンネル</div>
+    <div class="anime-stats">26万回視聴</div>
+    <div class="airdate">📡 7月5日放送開始</div>
+  </div>
+  <div class="item-num">07</div>
+</a>
 
-  <!-- 8 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #1a0a0a, #4a1010);">
-      <div class="thumb-icon">⚔️</div>
-      <div class="thumb-title-overlay">コードギアス 奪還のロゼ</div>
-      <div class="thumb-badge">CM</div>
-      <div class="duration">0:31</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">「コードギアス 奪還のロゼ」TV放送CM（30秒ver.）#geassp #コードギアス</div>
-      <div class="anime-channel">コードギアスチャンネル CODEGEASS</div>
-      <div class="anime-stats"><span>2.4万回視聴</span></div>
-      <div class="airdate">📡 7月放送開始</div>
-    </div>
-    <div class="item-num">08</div>
+<!-- 8 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=osyp68Xd_7w" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/osyp68Xd_7w/mqdefault.jpg" alt="コードギアス 奪還のロゼ" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">CM</div>
+    <div class="duration">0:31</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">「コードギアス 奪還のロゼ」TV放送CM（30秒ver.）#geassp #コードギアス</div>
+    <div class="anime-channel">コードギアスチャンネル CODEGEASS</div>
+    <div class="anime-stats">2.4万回視聴</div>
+    <div class="airdate">📡 7月10日放送開始</div>
+  </div>
+  <div class="item-num">08</div>
+</a>
 
-  <!-- 9 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #0a1e2a, #1040508);">
-      <div class="thumb-icon">🏊</div>
-      <div class="thumb-title-overlay">ぐらんぶる Season 3</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:23</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ「ぐらんぶる」Season 3　本PV</div>
-      <div class="anime-channel">NBCUniversal Anime/Music</div>
-      <div class="anime-stats"><span>30万回視聴</span></div>
-      <div class="airdate">📡 2026年7月放送</div>
-    </div>
-    <div class="item-num">09</div>
+<!-- 9 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=KJw6ZZaMOWA" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/KJw6ZZaMOWA/mqdefault.jpg" alt="ぐらんぶる Season 3" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:23</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ「ぐらんぶる」Season 3　本PV</div>
+    <div class="anime-channel">NBCUniversal Anime/Music</div>
+    <div class="anime-stats">30万回視聴</div>
+    <div class="airdate">📡 7月6日放送開始</div>
+  </div>
+  <div class="item-num">09</div>
+</a>
 
-  <!-- 10 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #001428, #002850);">
-      <div class="thumb-icon">💡</div>
-      <div class="thumb-title-overlay">二十世紀電氣目録-ユーレカ・エヴリカ-</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">0:48</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ『二十世紀電氣目録-ユーレカ・エヴリカ-』放送直前PV｜2026年7月5日T…</div>
-      <div class="anime-channel">京アニチャンネル</div>
-      <div class="anime-stats"><span>8.4万回視聴</span></div>
-      <div class="airdate">📡 7月5日放送開始</div>
-    </div>
-    <div class="item-num">10</div>
+<!-- 10 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=-W2vs2etG9o" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/-W2vs2etG9o/mqdefault.jpg" alt="二十世紀電氣目録" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">0:48</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ『二十世紀電氣目録-ユーレカ・エヴリカ-』放送直前PV｜2026年7月5日TV放送＆配信開始！</div>
+    <div class="anime-channel">京アニチャンネル</div>
+    <div class="anime-stats">8.4万回視聴</div>
+    <div class="airdate">📡 7月5日放送開始</div>
+  </div>
+  <div class="item-num">10</div>
+</a>
 
-  <!-- 11 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #1e1400, #3c2800);">
-      <div class="thumb-icon">⚡</div>
-      <div class="thumb-title-overlay">黄泉のツガイ</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">2:10</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">【メインPV】TVアニメ「黄泉のツガイ」4月4日(土)23時30分より連続2クール放送決…</div>
-      <div class="anime-channel">アニプレックス チャンネル</div>
-      <div class="anime-stats"><span>177万回視聴</span></div>
-      <div class="airdate">📡 連続2クール放送</div>
-    </div>
-    <div class="item-num">11</div>
+<!-- 11 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=XCyj9KKKjUI" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/XCyj9KKKjUI/mqdefault.jpg" alt="黄泉のツガイ" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">2:10</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">【メインPV】TVアニメ「黄泉のツガイ」4月4日(土)23時30分より連続2クール放送決定！</div>
+    <div class="anime-channel">アニプレックス チャンネル</div>
+    <div class="anime-stats">177万回視聴</div>
+    <div class="airdate">📡 連続2クール放送中</div>
+  </div>
+  <div class="item-num">11</div>
+</a>
 
-  <!-- 12 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #0a2010, #1a4020);">
-      <div class="thumb-icon">🌿</div>
-      <div class="thumb-title-overlay">無職転生Ⅲ 〜異世界行ったら本気だす〜</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:11</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">『無職転生Ⅲ 〜異世界行ったら本気だす〜』本PV／EDテーマ：「祈り、終われば」…</div>
-      <div class="anime-channel">TOHO animation チャンネル</div>
-      <div class="anime-stats"><span>121万回視聴</span></div>
-      <div class="airdate">📡 2026年7月放送</div>
-    </div>
-    <div class="item-num">12</div>
+<!-- 12 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=ODxfIvSgWuo" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/ODxfIvSgWuo/mqdefault.jpg" alt="無職転生III" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:11</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">『無職転生Ⅲ 〜異世界行ったら本気だす〜』本PV／EDテーマ：「祈り、終われば」中島美嘉</div>
+    <div class="anime-channel">TOHO animation チャンネル</div>
+    <div class="anime-stats">121万回視聴</div>
+    <div class="airdate">📡 7月5日放送開始</div>
+  </div>
+  <div class="item-num">12</div>
+</a>
 
-  <!-- 13 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #1e0a28, #3a1050);">
-      <div class="thumb-icon">🎨</div>
-      <div class="thumb-title-overlay">これ描いて死ね</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:31</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ『これ描いて死ね』本PV②／EDテーマ：リーガルリリー『コニファー』…</div>
-      <div class="anime-channel">VAP Official</div>
-      <div class="anime-stats"><span>5.3万回視聴</span></div>
-      <div class="airdate">📡 2026年7月放送</div>
-    </div>
-    <div class="item-num">13</div>
+<!-- 13 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=jI61NtGuxV4" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/jI61NtGuxV4/mqdefault.jpg" alt="これ描いて死ね" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:31</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ『これ描いて死ね』本PV②／EDテーマ：リーガルリリー『コニファー』</div>
+    <div class="anime-channel">VAP Official</div>
+    <div class="anime-stats">5.3万回視聴</div>
+    <div class="airdate">📡 7月3日放送開始</div>
+  </div>
+  <div class="item-num">13</div>
+</a>
 
-  <!-- 14 -->
-  <div class="anime-item">
-    <div class="thumb-wrap" style="--thumb-gradient: linear-gradient(135deg, #1e1400, #4a3000);">
-      <div class="thumb-icon">💣</div>
-      <div class="thumb-title-overlay">幼女戦記Ⅱ</div>
-      <div class="thumb-badge">PV</div>
-      <div class="duration">1:25</div>
-    </div>
-    <div class="anime-info">
-      <div class="anime-title">TVアニメ『幼女戦記Ⅱ』メインPV第1弾｜《2026年7月放送開始！》</div>
-      <div class="anime-channel">KADOKAWAanime</div>
-      <div class="anime-stats"><span>123万回視聴</span></div>
-      <div class="airdate">📡 7月放送開始</div>
-    </div>
-    <div class="item-num">14</div>
+<!-- 14 -->
+<a class="anime-item" href="https://www.youtube.com/watch?v=3-Cj3dXwQWI" target="_blank" rel="noopener">
+  <div class="thumb-wrap">
+    <img src="https://img.youtube.com/vi/3-Cj3dXwQWI/mqdefault.jpg" alt="幼女戦記II" loading="lazy">
+    <div class="play-overlay"><div class="play-icon"></div></div>
+    <div class="thumb-badge">PV</div>
+    <div class="duration">1:25</div>
   </div>
+  <div class="anime-info">
+    <div class="anime-title">TVアニメ『幼女戦記Ⅱ』メインPV第1弾｜《2026年7月放送開始！》</div>
+    <div class="anime-channel">KADOKAWAanime</div>
+    <div class="anime-stats">123万回視聴</div>
+    <div class="airdate">📡 7月放送開始</div>
+  </div>
+  <div class="item-num">14</div>
+</a>
 
 </div>
 
-<!-- FOOTER -->
 <div class="page-footer">
-  <div class="footer-logo">▶ MyAnimeList 2026</div>
-  <div>2026年夏アニメシーズン｜全14作品視聴予定｜毎週更新</div>
+  <div class="footer-logo">▶ 2026夏アニメ視聴予定</div>
+  <div>全14作品｜クリックでYouTube PVへジャンプ</div>
 </div>
 
 </body>
