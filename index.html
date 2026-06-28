@@ -9,6 +9,36 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #0f0f0f; font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; color: #f1f1f1; }
 
+  .top-nav {
+    background: #0a0a0a;
+    border-bottom: 1px solid #1e1e1e;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .top-nav-back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.15s;
+  }
+  .top-nav-back:hover { color: #fff; }
+  .top-nav-sep { color: #333; font-size: 14px; }
+  .top-nav-logo {
+    color: #ff4e4e;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .top-nav-logo:hover { color: #ff7070; }
+  .top-nav-current { color: #555; font-size: 11px; margin-left: auto; }
+
   .page-header {
     background: linear-gradient(135deg, #0f0f0f 0%, #1a0a2e 40%, #0d1b3e 70%, #0f0f0f 100%);
     padding: 28px 20px 20px;
@@ -244,6 +274,18 @@
 </style>
 </head>
 <body>
+
+<nav class="top-nav">
+  <a class="top-nav-back" href="https://rinkun0220.github.io/index.html">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    戻る
+  </a>
+  <span class="top-nav-sep">/</span>
+  <a class="top-nav-logo" href="https://rinkun0220.github.io/index.html">ANIMEDB</a>
+  <span class="top-nav-current">2026年夏アニメ視聴予定</span>
+</nav>
 
 <div class="page-header">
   <div class="badge">🌸 SUMMER 2026</div>
